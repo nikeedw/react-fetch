@@ -1,0 +1,28 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #232222;
+	color: #efefef;
+}
+
+#root {
+	display: flex;
+	justify-content: center;
+}
+
+.App {
+	width: 800px;
+}
+
+.post {
+	display: flex;
+	padding: 15px;
+	border: 2px solid #0077ff;
+	border-radius: 15px;
+	justify-content: space-between;
+	align-items: center;
+}
