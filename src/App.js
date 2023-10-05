@@ -3,6 +3,9 @@ import './styles/App.css';
 import PostList from "./components/PostList";
 import PostForm from "./components/PostForm";
 import PostFilter from "./components/PostFilter";
+import Modal from "./components/UI/modal/Modal";
+import Button from "./components/UI/button/Button";
+import { usePosts } from "./hooks/usePosts";
 
 function App() {
 	const [posts, setPosts] = useState([
@@ -11,30 +14,30 @@ function App() {
 		{id: 3, title: 'CMS', body: 'A web structure'},
 	]);
 	const [filter, setFilter] = useState({sort: '', query: ''});
-
-	const sortedPosts = useMemo(() => {
-		if(filter.sort) {
-			return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]));
-		} 
-		return posts;
-	}, [filter.sort, posts]); //use Memory
-
-	const sortedAndSearchedPosts = useMemo(() => {
-		return sortedPosts.filter(post => post.title.toLowerCase().includes(filter.query));
-	}, [filter.query, sortedPosts])
+	const [modal, setModal] = useState(false);
+	const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
 
 	function createPost(newPost) {
 		setPosts( [...posts, newPost] );
+		setModal(false);
 	}
 
 	function removePost(post) {
-		const newList = posts.filter( (p) => p.id !== post.id );
+		const newList = posts.filter(p => p.id !== post.id);
 		setPosts(newList);
 	}
 
 	return (
 		<div className="App">
-			<PostForm create={createPost} />
+			<Button onClick={() => setModal(true)}>
+				Create user
+			</Button>
+			<Modal
+				visible={modal}
+				setVisible={setModal}
+			>
+				<PostForm create={createPost} />
+			</Modal>
 			<hr style={{margin: '15px 0'}} />
 			<PostFilter filter={filter} setFilter={setFilter}/>
 			<PostList 

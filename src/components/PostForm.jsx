@@ -36,4 +36,4 @@ const PostForm = ({ create }) => {
 	)
 }
 
-export default PostForm
+export default PostForm;
