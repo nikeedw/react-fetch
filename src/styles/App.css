@@ -42,3 +42,29 @@ body {
 	opacity: 0;
 	transition: opacity 300ms ease-in;
 }
+.page__wrapper {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	padding: 20px 10px;
+	margin: 25px 0 20px 0;
+	border: 2px solid #6c62fb;
+	border-radius: 10px;
+}
+.page__wrapper .page {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #efefef;
+	cursor: pointer;
+	width: 25px;
+	height: 25px;
+	transition: all .35s ease;
+	transform: translateX(0px);
+}
+.page__wrapper .page__current {
+	font-weight: 700;
+	background-color: #6c62fb;
+	border-radius: 5px;
+	transform: translateY(-5px);
+}
