@@ -60,7 +60,8 @@ body {
 	width: 25px;
 	height: 25px;
 	transition: all .35s ease;
-	transform: translateX(0px);
+	perspective: 600px;
+	transform: translateY(0px);
 }
 .page__wrapper .page__current {
 	font-weight: 700;

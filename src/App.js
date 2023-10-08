@@ -1,17 +1,18 @@
 import React, { useRef, useState, useMemo, useEffect } from "react";
+import { usePosts } from "./hooks/usePosts";
+import { useFetching } from "./hooks/useFetching";
+import { usePagination } from "./hooks/usePagination";
 import './styles/App.css';
 import PostList from "./components/PostList";
 import PostForm from "./components/PostForm";
 import PostFilter from "./components/PostFilter";
 import Modal from "./components/UI/modal/Modal";
 import Button from "./components/UI/button/Button";
-import { usePosts } from "./hooks/usePosts";
 import axios from "axios";
 import PostService from "./API/PostService";
 import Loader from "./components/UI/loader/Loader";
-import { useFetching } from "./hooks/useFetching";
 import { getPagesCount } from "./utils/pages";
-import { usePagination } from "./hooks/usePagination";
+import Pagination from "./components/UI/pagination/Pagination";
 
 function App() {
 	const [posts, setPosts] = useState([]);
@@ -21,10 +22,8 @@ function App() {
 	const [limit, setLimit] = useState(10);
 	const [page, setPage] = useState(1);
 	const sortedAndSearchedPosts = usePosts(posts || [], filter.sort, filter.query);
-	
-	const pagesArray = usePagination(totalPages);
 
-	const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
+	const [fetchPosts, isPostsLoading, postError] = useFetching(async (limit, page) => {
 		const response = await PostService.getAll(limit, page);
 		setPosts(response.data);
 		const totalCount = response.headers['x-total-count'];
@@ -32,8 +31,8 @@ function App() {
 	})
 
 	useEffect(() => {
-		fetchPosts();
-	}, [filter])
+		fetchPosts(limit, page);
+	}, [])
 	
 	function createPost(newPost) {
 		setPosts( [...posts, newPost] );
@@ -43,6 +42,11 @@ function App() {
 	function removePost(post) {
 		const newList = posts.filter(p => p.id !== post.id);
 		setPosts(newList);
+	}
+
+	function changePage(page) {
+		setPage(page);
+		fetchPosts(limit, page);
 	}
 
 	return (
@@ -73,15 +77,11 @@ function App() {
 						title="Posts List" 
 					/>
 			}
-			<div className="page__wrapper">
-				{pagesArray.map(p => 
-					<span 
-						onClick={() => setPage(p)}
-						key={p}
-						className={page === p ? 'page page__current' : 'page'}
-					>{p}</span>
-				)}
-			</div>
+			<Pagination 
+				totalPages={totalPages}
+				page={page}
+				changePage={changePage}
+			/>
 		</div>
 	);
 }
