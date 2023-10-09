@@ -11,14 +11,22 @@ body {
 
 #root {
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
+	align-items: center;
 }
-
 .App {
-	width: 800px;
-	padding: 10px;
+	position: relative;
+	max-width: 800px;
+	padding: 10px 20px;
 }
-
+.About {
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+	font-size: 24px;
+}
 .post {
 	display: flex;
 	padding: 15px;
@@ -68,4 +76,18 @@ body {
 	background-color: #6c62fb;
 	border-radius: 5px;
 	transform: translateY(-5px);
+}
+.Missing {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	height: 100vh;
+}
+.Missing h1 {
+	color: #ec2c2c;
+	margin-bottom: 10px;
+}
+.Missing .redirect {
+	color: #efefef;
 }
