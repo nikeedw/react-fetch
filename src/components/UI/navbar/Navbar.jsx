@@ -1,22 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import cl from './Navbar.module.css';
 
 const Navbar = () => {
 	const location = useLocation();
-	const [activeLink, setActiveLink] = useState(null);
-
-	const handleLinkClick = (link) => {
-		setActiveLink(link);
-	};
 
 	const isLinkActive = (link) => { 
-		return location.pathname === link; //true or false
-	}
+		return location.pathname === link;
+	};
 
 	const getLinkClassName = (link) => {
 		const classes = [cl.link];
-		if (isLinkActive(link) || activeLink === link) {
+		if (isLinkActive(link) || (location.pathname.startsWith('/posts') && link === '/posts')) {
 			classes.push(cl.active);
 		}
 		return classes.join(' ');
@@ -27,14 +22,12 @@ const Navbar = () => {
 			<NavLink
 				className={getLinkClassName('/posts')}
 				to="/posts"
-				onClick={() => handleLinkClick('/posts')}
 			>
 				Posts
 			</NavLink>
 			<NavLink
 				className={getLinkClassName('/about')}
 				to="/about"
-				onClick={() => handleLinkClick('/about')}
 			>
 				About
 			</NavLink>
