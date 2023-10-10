@@ -49,7 +49,9 @@ const PostIdPage = () => {
 			</Button>
 			<h1>You have opened the post page with id: {params.id}</h1>
 			{isLoading
-				? <Loader />
+				? <div style={{display: 'flex', justifyContent: 'center', marginTop: '3rem'}}>
+						<Loader />
+					</div>
 				: <h1 style={{
 						margin: "20px",
 						color: "#6c62fb"
@@ -59,7 +61,9 @@ const PostIdPage = () => {
 			}
 			<h1>Comments</h1>
 			{isComLoading 
-				? <Loader />
+				? <div style={{display: 'flex', justifyContent: 'center', marginTop: '3rem'}}>
+						<Loader />
+					</div>
 				: <div>
 						{comments.map(comm => 
 							<div style={{marginTop: "20px"}}>

@@ -4,16 +4,21 @@ import Missing from "../pages/Missing";
 import Posts from "../pages/Posts";
 import About from "../pages/About";
 import PostIdPage from '../pages/PostIdPage';
+import { routes } from '../router/routes';
 
 const AppRouter = () => {
 	return (
 		<Routes>
-			<Route path="/posts" element={<Posts />} />
-			<Route exact path="posts/:id" element={<PostIdPage />}/>
-			<Route path="/about" element={<About />} />
-			<Route path="*" element={<Missing />} />
+			{routes.map(route => (
+					<Route
+						key={route.path}
+						path={route.path}
+						element={<route.component />}
+						exact={route.exact}
+					/>
+			))}
 		</Routes>
-	)
+	);
 }
 
 export default AppRouter;
