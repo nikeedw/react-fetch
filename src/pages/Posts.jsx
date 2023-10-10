@@ -34,9 +34,13 @@ function Posts() {
 	}, [])
 	
 	function createPost(newPost) {
-		setPosts( [...posts, newPost] );
+		const maxId = Math.max(...posts.map((post) => post.id), 0);
+		const postId = maxId + 1;
+		const postWithId = { ...newPost, id: postId };
+	
+		setPosts([...posts, postWithId]);
 		setModal(false);
-	}
+	}	
 
 	function removePost(post) {
 		const newList = posts.filter(p => p.id !== post.id);

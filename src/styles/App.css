@@ -15,8 +15,8 @@ body {
 	align-items: center;
 }
 .App {
-	position: relative;
 	max-width: 800px;
+	position: relative;
 	padding: 10px 20px;
 }
 .About {

@@ -10,7 +10,9 @@ const Navbar = () => {
 		setActiveLink(link);
 	};
 
-	const isLinkActive = (link) => location.pathname === link;
+	const isLinkActive = (link) => { 
+		return location.pathname === link; //true or false
+	}
 
 	const getLinkClassName = (link) => {
 		const classes = [cl.link];
@@ -23,9 +25,9 @@ const Navbar = () => {
 	return (
 		<nav className={cl.navbar}>
 			<NavLink
-				className={getLinkClassName('/posts')}
-				to="/posts"
-				onClick={() => handleLinkClick('/posts')}
+				className={getLinkClassName('/')}
+				to="/"
+				onClick={() => handleLinkClick('/')}
 			>
 				Posts
 			</NavLink>
