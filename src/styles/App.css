@@ -32,6 +32,10 @@ body {
 	max-width: 800px;
 	padding: 10px 20px;
 }
+.selects {
+	display: flex;
+	margin-top: 5px;
+}
 .post {
 	display: flex;
 	padding: 15px;

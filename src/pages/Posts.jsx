@@ -12,6 +12,7 @@ import Loader from "../components/UI/loader/Loader";
 import { getPagesCount } from "../utils/pages";
 import Pagination from "../components/UI/pagination/Pagination";
 import { useObserver } from "../hooks/useObserver";
+import Select from "../components/UI/select/Select";
 
 function Posts() {
 	const [posts, setPosts] = useState([]);
@@ -37,7 +38,7 @@ function Posts() {
 
 	useEffect(() => {
 		fetchPosts(limit, page);
-	}, [page])
+	}, [page, limit])
 	
 	function createPost(newPost) {
 		const maxId = Math.max(...posts.map((post) => post.id), 0);
@@ -70,6 +71,19 @@ function Posts() {
 			</Modal>
 			<hr style={{margin: '15px 0'}} />
 			<PostFilter filter={filter} setFilter={setFilter}/>
+			<div className="selects">
+				<Select 
+					value={limit}
+					onChange={value => setLimit(value)}
+					defaultValue="Number posts"
+					options={[
+						{value: 5, name: 5},
+						{value: 10, name: 10},
+						{value: 25, name: 25},
+						{value: -1, name: 'Show all'},
+					]}
+				/>
+			</div>
 			{postError &&
 				<h1 style={{textAlign: "center", marginBlock: "20px"}}>
 					{`There is an error! ${postError}`}
