@@ -3,7 +3,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 0 30px;
 	background-color: rgba(0, 0, 0, .6);
 	backdrop-filter: blur(30px);

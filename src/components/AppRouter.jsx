@@ -5,7 +5,6 @@ import { AuthContext } from '../context';
 
 const AppRouter = () => {
   const { isAuth } = useContext(AuthContext);
-	console.log(isAuth);
 
   return (
     <Routes>
@@ -19,7 +18,8 @@ const AppRouter = () => {
               caseSensitive
             />
           ))}
-          <Route path="/posts" element={<Navigate to="/posts" />} />
+          {/* Добавляем пустой маршрут для privateRoutes */}
+          <Route path="/*" element={<Navigate to="/posts" />} />
         </>
       ) : (
         <>
@@ -31,7 +31,8 @@ const AppRouter = () => {
               caseSensitive
             />
           ))}
-          <Route path="/login" element={<Navigate to="/login" />} />
+          {/* Маршрут для перенаправления на страницу /login */}
+          <Route path="/*" element={<Navigate to="/login" />} />
         </>
       )}
     </Routes>

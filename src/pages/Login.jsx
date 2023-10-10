@@ -16,7 +16,7 @@ const Login = () => {
 
 	return (
 		<div>
-			<h1>Page for Login</h1>
+			<h1 style={{marginBlock: "10px", textAlign: "center"}}>Page for Login</h1>
 			<form onSubmit={login}>
 				<Input type="text" placeholder="Enter login"/>
 				<Input type="password" placeholder="Enter password"/>
