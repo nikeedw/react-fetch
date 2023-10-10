@@ -1,7 +1,6 @@
 import React, { useRef, useState, useMemo, useEffect } from "react";
 import { usePosts } from "../hooks/usePosts";
 import { useFetching } from "../hooks/useFetching";
-import { usePagination } from '../hooks/usePagination';
 import '../styles/App.css';
 import PostList from "../components/PostList";
 import PostForm from "../components/PostForm";
@@ -12,6 +11,7 @@ import PostService from "../API/PostService";
 import Loader from "../components/UI/loader/Loader";
 import { getPagesCount } from "../utils/pages";
 import Pagination from "../components/UI/pagination/Pagination";
+import { useObserver } from "../hooks/useObserver";
 
 function Posts() {
 	const [posts, setPosts] = useState([]);
@@ -21,17 +21,23 @@ function Posts() {
 	const [limit, setLimit] = useState(10);
 	const [page, setPage] = useState(1);
 	const sortedAndSearchedPosts = usePosts(posts || [], filter.sort, filter.query);
+	const lastElement = useRef()
+	console.log(lastElement);
 
 	const [fetchPosts, isPostsLoading, postError] = useFetching(async (limit, page) => {
 		const response = await PostService.getAll(limit, page);
-		setPosts(response.data);
+		setPosts([...posts, ...response.data]);
 		const totalCount = response.headers['x-total-count'];
 		setTotalPages(getPagesCount(totalCount, limit));
 	})
 
+	useObserver(lastElement, page < totalPages, isPostsLoading, () => {
+		setPage(page + 1);
+})
+
 	useEffect(() => {
 		fetchPosts(limit, page);
-	}, [])
+	}, [page])
 	
 	function createPost(newPost) {
 		const maxId = Math.max(...posts.map((post) => post.id), 0);
@@ -49,7 +55,6 @@ function Posts() {
 
 	function changePage(page) {
 		setPage(page);
-		fetchPosts(limit, page);
 	}
 
 	return (
@@ -70,16 +75,17 @@ function Posts() {
 					{`There is an error! ${postError}`}
 				</h1>
 			}
-			{isPostsLoading 
-				? <div style={{display: 'flex', justifyContent: 'center', marginTop: '3rem'}}>
-						<Loader />
-					</div>
-				:	<PostList 
-						remove={removePost} 
-						posts={sortedAndSearchedPosts} 
-						title="Posts List" 
-					/>
-			}
+			{isPostsLoading && 
+				<div style={{display: 'flex', justifyContent: 'center', marginTop: '3rem'}}>
+					<Loader />
+				</div>
+			}	
+			<PostList 
+				remove={removePost} 
+				posts={sortedAndSearchedPosts} 
+				title="Posts List" 
+			/>
+			<div ref={lastElement}>{/*FOR Intersection Observer*/}</div>
 			<Pagination 
 				totalPages={totalPages}
 				page={page}
