@@ -19,12 +19,14 @@ const Navbar = () => {
 		return classes.join(' ');
 	};
 
+	// exit session logics
 	const {isAuth, setIsAuth} = useContext(AuthContext);
 	const navigate = useNavigate();
 
 	function exitSession() {
 		setIsAuth(false);
 		navigate('/login');
+		localStorage.removeItem('auth');
 	}
 
 	return (

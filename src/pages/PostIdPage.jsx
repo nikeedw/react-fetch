@@ -36,8 +36,8 @@ const PostIdPage = () => {
 				className="back_btn"
 				style={{
 					position: "absolute",
-					top: "10px",
-					left: "10px",
+					top: "70px",
+					left: "30px",
 					display: "flex",
 					alignItems: "center",
 					justifyContent: "center",
