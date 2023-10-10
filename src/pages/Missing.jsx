@@ -5,7 +5,7 @@ const Missing = () => {
 	return (
 		<div className="Missing">
 			<h1>This page does not exists</h1>
-			<Link className='redirect' to="/">Visit our Home page</Link>
+			<Link className='redirect' to="/posts">Visit our Home page</Link>
 		</div>
 	)
 }

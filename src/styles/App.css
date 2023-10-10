@@ -26,6 +26,11 @@ body {
 	justify-content: center;
 	font-weight: bold;
 	font-size: 24px;
+	padding: 10px 20px;
+}
+.PostIdPage {
+	max-width: 800px;
+	padding: 10px 20px;
 }
 .post {
 	display: flex;
@@ -35,6 +40,11 @@ body {
 	margin: 5px;
 	justify-content: space-between;
 	align-items: center;
+}
+.post__btns {
+	display: flex;
+	gap: 5px;
+	margin: 2px;
 }
 .post-enter {
 	opacity: 0;

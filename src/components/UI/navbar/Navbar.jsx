@@ -25,9 +25,9 @@ const Navbar = () => {
 	return (
 		<nav className={cl.navbar}>
 			<NavLink
-				className={getLinkClassName('/')}
-				to="/"
-				onClick={() => handleLinkClick('/')}
+				className={getLinkClassName('/posts')}
+				to="/posts"
+				onClick={() => handleLinkClick('/posts')}
 			>
 				Posts
 			</NavLink>
